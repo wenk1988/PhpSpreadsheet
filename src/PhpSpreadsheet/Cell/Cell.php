@@ -40,7 +40,7 @@ class Cell
      *
      * @var mixed
      */
-    public $calculatedValue;
+    private $calculatedValue;
 
     /**
      * Type of the cell data.
