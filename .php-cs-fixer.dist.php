@@ -2,6 +2,7 @@
 
 $finder = PhpCsFixer\Finder::create()
     ->exclude('vendor')
+    ->notPath('src/PhpSpreadsheet/Writer/ZipStream3.php')
     ->in(__DIR__);
 
 $config = new PhpCsFixer\Config();
@@ -21,7 +22,7 @@ $config
         'braces' => true,
         'cast_spaces' => true,
         'class_attributes_separation' => ['elements' => ['method' => 'one', 'property' => 'one']], // const are often grouped with other related const
-        'class_definition' => true,
+        'class_definition' => false,
         'class_keyword_remove' => false, // ::class keyword gives us better support in IDE
         'combine_consecutive_issets' => true,
         'combine_consecutive_unsets' => true,
@@ -55,10 +56,10 @@ $config
         'function_declaration' => true,
         'function_to_constant' => true,
         'function_typehint_space' => true,
-        'general_phpdoc_annotation_remove' => ['annotations' => ['access', 'category', 'copyright', 'throws']],
+        'general_phpdoc_annotation_remove' => ['annotations' => ['access', 'category', 'copyright']],
         'global_namespace_import' => true,
         'header_comment' => false, // We don't use common header in all our files
-        'heredoc_indentation' => false, // Requires PHP >= 7.3
+        'heredoc_indentation' => true,
         'heredoc_to_nowdoc' => false, // Not sure about this one
         'implode_call' => true,
         'include' => true,

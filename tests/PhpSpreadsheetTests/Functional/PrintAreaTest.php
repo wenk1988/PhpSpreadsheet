@@ -7,7 +7,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 class PrintAreaTest extends AbstractFunctional
 {
-    public function providerFormats(): array
+    public static function providerFormats(): array
     {
         return [
             ['Xls'],
@@ -58,8 +58,7 @@ class PrintAreaTest extends AbstractFunctional
 
     private static function getPrintArea(Spreadsheet $spreadsheet, string $name): string
     {
-        $sheet = $spreadsheet->getSheetByName($name);
-        self::assertNotNull($sheet, "Unable to get sheet $name");
+        $sheet = $spreadsheet->getSheetByNameOrThrow($name);
 
         return $sheet->getPageSetup()->getPrintArea();
     }
