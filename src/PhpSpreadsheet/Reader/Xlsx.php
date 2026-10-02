@@ -146,17 +146,21 @@ class Xlsx extends BaseReader
 
     // This function is just to identify cases where I'm not sure
     // why empty namespace is required.
-    private function loadZipNonamespace(string $filename, string $ns): SimpleXMLElement
+    private function loadZipNonamespace(string $filename, string $ns): SimpleXMLElement|null
     {
-        $contents = $this->getFromZipArchive($this->zip, $filename);
-        $rels = simplexml_load_string(
-            $this->getSecurityScannerOrThrow()->scan($contents),
-            'SimpleXMLElement',
-            Settings::getLibXmlLoaderOptions(),
-            ($ns === '' ? $ns : '')
-        );
+        if ($this->zip->locateName($filename) !== false) {
+            $contents = $this->getFromZipArchive($this->zip, $filename);
+            $rels = simplexml_load_string(
+                $this->getSecurityScannerOrThrow()->scan($contents),
+                'SimpleXMLElement',
+                Settings::getLibXmlLoaderOptions(),
+                ($ns === '' ? $ns : '')
+            );
 
-        return self::testSimpleXml($rels);
+            return self::testSimpleXml($rels);
+        } else {
+            return null;
+        }
     }
 
     private const REL_TO_MAIN = [
